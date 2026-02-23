@@ -72,6 +72,7 @@ export default {
 
       } catch (error) {
         this.error = 'Error al iniciar sesión: ' + error.message;
+        this.password = '';
       }
     }
   }
