@@ -58,7 +58,7 @@ export default {
 
         if (userDoc.exists()) {
           const rol = userDoc.data().rol;
-          console.log('Rol del tutor:', rol);
+          console.log('Rol:', rol);
 
           if (rol === true) {
             this.$router.push('/veterinario');

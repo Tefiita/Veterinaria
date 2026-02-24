@@ -9,8 +9,8 @@
       <label>Mascota</label>
       <select v-model="mascotaSeleccionada">
         <option disabled value="">Seleccione mascota</option>
-        <option v-for="m in mascotas" :key="m.id" :value="m.id">
-          {{ m.nombre }}
+        <option v-for="mascota in mascotas" :key="mascota.id" :value="mascota.id">
+          {{ mascota.nombre }}
         </option>
       </select>
     </div>
@@ -36,13 +36,13 @@
           <option disabled value="">Seleccione tipo</option>
           <option value="control">Control</option>
           <option value="vacuna">Vacuna</option>
-          <option value="esterilizacion">Esterilización</option>
-          <option value="chequeos">Chequeos Preventivos</option>
+          <option value="esterilizacion/castracion">Esterilización/Castración</option>
+          <option value="chequeos preventivos">Chequeos Preventivos</option>
           <option value="especializacion">Especialización</option>
         </select>
         <select v-show="tipoCita === 'especializacion'" v-model="especializacion">
           <option disabled value="">Seleccione especialización</option>
-          <option value="dermatologia">Dermatología</option>
+          <option value="ermatologia">Dermatología</option>
           <option value="cardiologia">Cardiología</option>
           <option value="oftalmologia">Oftalmología</option>
           <option value="cirugia">Cirugía</option>
@@ -105,7 +105,7 @@ export default {
           fecha : this.fecha,
           hora: this.hora,
           tipoCita: this.tipoCita,
-          especializacion: this.tipoCita === "especializacion" ? this.especializacion : null,
+          especializacion: this.tipoCita === "Especializacion" ? this.especializacion : null,
           detalle: this.detalle,
           ownerId: user.uid,
           createdAt: new Date()
@@ -126,12 +126,12 @@ export default {
         const user = auth.currentUser;
         if (!user) return;
 
-        const q = query(
+        const queryMascotas = query(
           collection(db, "mascotas"),
           where("ownerId", "==", user.uid)
         );
 
-        const snapshot = await getDocs(q);
+        const snapshot = await getDocs(queryMascotas);
 
         this.mascotas = snapshot.docs.map(doc => ({
           id: doc.id,

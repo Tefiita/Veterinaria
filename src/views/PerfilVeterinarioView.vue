@@ -1,10 +1,15 @@
 <template>
-  <h1>Soy un veterinario</h1>
+  <ListarHoras />
 </template>
 
 <script>
+import ListarHoras from '@/components/ListarHoras.vue';
+
 
 export default {
-  name: 'PerfilVeterinario'
+  name: 'PerfilVeterinario',
+  components: {
+    ListarHoras
+  }
 }
 </script>

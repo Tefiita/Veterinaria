@@ -13,6 +13,12 @@
       <input class="form-control mb-3" v-show="especie === 'otro'" v-model="especiePersonalizada"
         placeholder="Ingrese especie" />
 
+      <select class="form-select mb-3" v-model="sexo">
+        <option disabled value="">Seleccione sexo</option>
+        <option value="macho">Macho</option>
+        <option value="hembra">Hembra</option>
+      </select>
+
       <select class="form-select mb-3" v-show="especie !== 'gato' && especie !== 'otro'" v-model="raza">
         <option disabled value="">Seleccione raza</option>
         <option value="beagle">Beagle</option>
@@ -28,8 +34,8 @@
       </select>
 
       <input class="form-control mb-3" v-model="color" type="text" placeholder="Color">
-      <label class="form-label">Fecha de cumpleaños</label>
-      <input class="form-control mb-3" v-model="fechaCumple" type="date" />
+      <label class="form-label">Fecha de nacimiento / Fecha de Cumpleaños</label>
+      <input class="form-control mb-3" v-model="fechaNacimiento" type="date" />
       <div>
         <button class="btn btn-primary w-100" @click="registrarMascota">
           Guardar Mascota
@@ -52,7 +58,8 @@ export default {
       nombre: '',
       especie: '',
       raza: '',
-      fechaCumple: '',
+      sexo: '',
+      fechaNacimiento: '',
       color: '',
       especiePersonalizada: '',
       error: null
@@ -65,7 +72,9 @@ export default {
         !this.nombre ||
         !this.especie ||
         (this.especie === "otro" && !this.especiePersonalizada) ||
-        (this.especie !== "gato" && !this.raza)
+        (this.especie !== "gato" && !this.raza) ||
+        !this.sexo ||
+        !this.fechaNacimiento
       ) {
         this.error = "Por favor, completa los campos requeridos";
         return;
@@ -84,7 +93,8 @@ export default {
           nombre: this.nombre,
           especie: this.especie === 'otro' ? this.especiePersonalizada : this.especie,
           raza: this.raza,
-          fechaCumple: this.fechaCumple,
+          fechaNacimiento: this.fechaNacimiento,
+          sexo: this.sexo,
           ownerId: user.uid,
           color: this.color,
           createdAt: new Date()
